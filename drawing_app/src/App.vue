@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <DrawingCanvas></DrawingCanvas>
+    <DrawingCanvas class="drawing-canvas"></DrawingCanvas>
   </div>
 </template>
 
@@ -21,7 +21,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
