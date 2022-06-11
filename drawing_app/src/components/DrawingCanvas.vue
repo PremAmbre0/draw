@@ -2,19 +2,20 @@
   <div class="canvas-container">
     <canvas ref="canvas" class="canvas" height="600" width="800"></canvas>
     <div class="controls">
-    <div class="brush">
-      <div class="brush-thicknes">
-        <button class="btn" @click="increment">+</button>
-        <div class="brush-thicknes--value">{{thickness}}</div>
-        <button class="btn" @click="decrement">-</button>
+      <div class="brush">
+        <div class="brush-thickness">
+          <button class=" brush-thicknss--increment btn" @click="increment">+</button>
+          <div class="brush-thickness--value">{{ thickness }}</div>
+          <button class="brush-tickness--decrement btn" @click="decrement">-</button>
+        </div>
+        <div class=" brush-colorpicker-container">
+          <label for="colorpicker"><input type="color" class="brush-colorpicker-input" ref="colorpicker"
+              name="colorpicker" @input="changeColor"></label>
+        </div>
+        <div class="close">
+          <button @click="clearCanvas" class=" btn">X</button>
+        </div>
       </div>
-      <div class="colorpicker">
-        <label for="colorpicker"><input type="color" ref="colorpicker" name="colorpicker" @input="changeColor"></label>
-      </div>
-    </div>
-    <div class="close">
-      <button @click="clearCanvas" class="btn">X</button>
-    </div>
     </div>
   </div>
 </template>
@@ -26,52 +27,52 @@ export default {
 
   data() {
     return {
-      thickness:10,
-      color:'#000'
+      thickness: 10,
+      color: '#000'
     }
   },
-  watch:{
-    thickness(){
-      this.manipulator(this.canvas,this.color, this.thickness)
+  watch: {
+    thickness() {
+      this.manipulator(this.canvas, this.color, this.thickness)
     },
-    color(){
-      this.manipulator(this.canvas,this.color, this.thickness)
+    color() {
+      this.manipulator(this.canvas, this.color, this.thickness)
     }
   },
-  computed:{
+  computed: {
     canvas() {
       const ref = this.$refs.canvas;
-      const canvas  = new fabric.Canvas(ref);
+      const canvas = new fabric.Canvas(ref);
       return canvas
     }
   },
   mounted() {
     this.canvas.isDrawingMode = true;
-    this.manipulator(this.canvas,this.color, this.thickness)
+    this.manipulator(this.canvas, this.color, this.thickness)
   },
   methods: {
-    manipulator : function(canvas,color, thickness){
-      canvas.freeDrawingBrush.color = color;  
+    manipulator: function (canvas, color, thickness) {
+      canvas.freeDrawingBrush.color = color;
       canvas.freeDrawingBrush.width = parseInt(thickness)
     },
-    increment: function(){
-      if(this.thickness==100){
+    increment: function () {
+      if (this.thickness == 100) {
         return
       }
-      this.thickness +=5;
+      this.thickness += 5;
     },
-    decrement: function(){
-      if(this.thickness==0){
+    decrement: function () {
+      if (this.thickness == 0) {
         return
       }
-      this.thickness -=5;
+      this.thickness -= 5;
     },
-    changeColor: function(){
+    changeColor: function () {
       const color = this.$refs.colorpicker.value;
       this.color = color;
     },
-    clearCanvas : function (){
-      this.canvas.clear(); 
+    clearCanvas: function () {
+      this.canvas.clear();
     }
   },
 };
@@ -80,12 +81,64 @@ export default {
 <style lang="scss">
 .canvas {
   border: 1px solid #000;
-  background-color: #fff;
+  // background-color: #fff;
 
 }
-.canvas-container{
-  height:65rem;
-  width:80rem;
+
+.canvas-container {
+  height: 65rem;
+  width: 80.2rem;
+  position: relative;
+}
+
+.brush {
+  margin-top: 0.1rem;
+  height: 5rem;
+  width: 100%;
   background-color: $steel-blue;
+
+  &-thickness {
+    position: absolute;
+    bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    &--value {
+      background-color: #fff;
+      height: 3rem;
+      width: 3rem;
+      font-size: 2rem;
+      text-align: center;
+      line-height: 3rem;
+    }
+  }
+
+  &-colorpicker {
+    &-container {
+      position: absolute;
+      bottom: 1rem;
+      left: 11rem;
+    }
+
+    &-input {
+      height: 3rem;
+      width: 3rem;
+      margin: 0 2rem 0 2rem
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+
+}
+
+.btn {
+  height: 3rem;
+  width: 3rem;
+  margin: 0 1rem 0 1rem
 }
 </style>
