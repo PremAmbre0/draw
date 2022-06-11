@@ -27,8 +27,9 @@ export default {
 
   data() {
     return {
-      thickness: 10,
-      color: '#000'
+      thickness:"10",
+      color: '#000',
+      canvas: null
     }
   },
   watch: {
@@ -39,33 +40,15 @@ export default {
       this.manipulator(this.canvas, this.color, this.thickness)
     }
   },
-  computed: {
-    canvas() {
-      const ref = this.$refs.canvas;
-      const canvas = new fabric.Canvas(ref);
-      return canvas
-    }
-  },
   mounted() {
+    this.canvas = new fabric.Canvas(this.$refs.canvas);
     this.canvas.isDrawingMode = true;
     this.manipulator(this.canvas, this.color, this.thickness)
   },
   methods: {
     manipulator: function (canvas, color, thickness) {
       canvas.freeDrawingBrush.color = color;
-      canvas.freeDrawingBrush.width = parseInt(thickness)
-    },
-    increment: function () {
-      if (this.thickness == 100) {
-        return
-      }
-      this.thickness += 5;
-    },
-    decrement: function () {
-      if (this.thickness == 0) {
-        return
-      }
-      this.thickness -= 5;
+      canvas.freeDrawingBrush.width = thickness
     },
     changeColor: function () {
       const color = this.$refs.colorpicker.value;
