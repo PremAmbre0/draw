@@ -27,7 +27,7 @@ export default {
 
   data() {
     return {
-      thickness:"10",
+      thickness:10,
       color: '#000',
       canvas: null
     }
